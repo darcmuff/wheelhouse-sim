@@ -1,5 +1,5 @@
-const K='wh-sim-db-v1';
-let DB;try{DB=JSON.parse(sessionStorage.getItem(K))}catch(e){} if(!DB)DB=JSON.parse(JSON.stringify(window.__SIMDATA));
+const EMPTY=/[?&]empty=1/.test(location.search);const K=EMPTY?'wh-sim-db-empty':'wh-sim-db-v1';
+let DB;try{DB=JSON.parse(sessionStorage.getItem(K))}catch(e){} if(!DB)DB=EMPTY?{wheels:[],trades:[],optlegs:[]}:JSON.parse(JSON.stringify(window.__SIMDATA));
 const save=()=>{try{sessionStorage.setItem(K,JSON.stringify(DB))}catch(e){}};
 export function getFirestore(){return {}} export function doc(db,...p){return {p}}
 export function collection(db,...p){return p[p.length-1]}
